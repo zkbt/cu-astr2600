@@ -53,7 +53,7 @@ exec(open('astr2600/version.py').read())
 # run the setup function
 setup(
     # people can type `import henrietta` to access this package
-    name = "astr2600",
+    name = "cu-astr2600",
     # this package will only be installed if the current version doesn't exist
     version = __version__,
     # what's a short description of the package?
