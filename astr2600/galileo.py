@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def drawMoons(names, xpositions, xlim=[-500,500], labels=False):
+def drawMoons(names, xpositions, xlim=[-500,500], labels=True):
     '''
     Draw a plot of the positions of moons relative to Jupiter.
 
@@ -14,20 +14,23 @@ def drawMoons(names, xpositions, xlim=[-500,500], labels=False):
 
     For example:
 
-        %matplotlib inline
         names = ['Io', 'Europa', 'Ganymede', 'Callisto']
         xpositions = [-20, 40, 80, -160]
         drawMoons(names, xpositions)
 
-        (should display a plot of the moon positions)
+        (this should display a plot of the moon positions)
 
     Options keyword arguments
 
         xlim = [-500,500]
-            (set this to some other 2-element list to change
-                the range over which the plot stretchs)
-        labels = False
-            (set this to True to provide text labels)
+            This defines the x values of the left and
+            right edges of the plotting range to be included.
+
+        labels = True
+            If the function is called with labels=True,
+            then display the names of the moons.
+            If the function is called with labels=False,
+            then do not display the names of the moons.
     '''
 
     # since we're plotting only 1D positions, we make up y-values
@@ -45,7 +48,7 @@ def drawMoons(names, xpositions, xlim=[-500,500], labels=False):
     # if desired, we add text labels to all the moons
     if labels:
         for x, y, n in zip(xpositions, ypositions, names):
-            plt.text(x, y+0.1, n, ha='center', va='bottom')
+            plt.text(x, y+0.5, n, ha='center', va='bottom', size=9)
 
     # plot Jupiter in the center
     plt.plot(0,0, marker='o', markersize=10, color='black')
