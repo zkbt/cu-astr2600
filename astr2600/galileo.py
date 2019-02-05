@@ -29,6 +29,7 @@ def drawMoons(names, xpositions, xlim=[-500,500], labels=True):
         labels = True
             If the function is called with labels=True,
             then display the names of the moons.
+
             If the function is called with labels=False,
             then do not display the names of the moons.
     '''
@@ -37,7 +38,7 @@ def drawMoons(names, xpositions, xlim=[-500,500], labels=True):
     ypositions = np.zeros_like(xpositions)
 
     # we create a new figure, and set its size
-    plt.figure(figsize=(10,.25))
+    plt.figure(figsize=(10,0.5))
 
     # we plot the moons in their positions
     plt.plot(xpositions, ypositions,
@@ -51,7 +52,7 @@ def drawMoons(names, xpositions, xlim=[-500,500], labels=True):
             plt.text(x, y+0.5, n, ha='center', va='bottom', size=9)
 
     # plot Jupiter in the center
-    plt.plot(0,0, marker='o', markersize=10, color='black')
+    plt.plot(0,0, marker='o', markersize=20, markerfacecolor='none', markeredgecolor='black')
 
     # set the x and y limits of the plot
     plt.xlim(*xlim)
