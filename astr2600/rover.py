@@ -3,7 +3,7 @@
 '''
 
 import numpy as np
-from turtle import Turtle
+from turtle import Turtle, bye
 
 xsize = 500
 ysize = 500
@@ -31,6 +31,9 @@ class Rover(Turtle):
         self.width(width)
         self.screen.bgcolor('lightcoral')
         self.screen.setup(xsize, ysize)
+
+    def bye(self):
+        bye()
 
     def reset(self):
         Turtle.reset(self)

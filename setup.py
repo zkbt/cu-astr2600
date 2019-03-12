@@ -69,9 +69,9 @@ setup(
     # this figures out what subdirectories to include
     packages = find_packages(),
     # are the directories of data that should be accessible when installed?
-    include_package_data=False,
+    include_package_data=True,
     # where are those data directories?
-    package_data = {'astr2600':[]},
+    package_data = {'astr2600':['data/*.txt']},
     # any scripts will be copied into your $PATH, so that can run from the command line
     scripts = [],
     # some descriptions about this package (for searchability?)
