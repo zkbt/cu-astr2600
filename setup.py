@@ -86,7 +86,8 @@ setup(
                       'scipy',
                       'ipython',
                       'matplotlib',
-                      'jupyter'],
+                      'jupyter'
+                      'astropy'],
 
     # the packages in `key` will be installed if folks run `pip install henrietta[key]`
     extras_require={},
