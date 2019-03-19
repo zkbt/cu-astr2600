@@ -27,7 +27,10 @@ Constants:
 import matplotlib.pyplot as plt
 import numpy as np
 import astropy.io.fits as pf
+from .resample import bintoR
 
+wmin = 390
+wmax = 800
 
 def downloadSDSS(online=True, verbose=True):
     '''
@@ -100,6 +103,7 @@ def downloadSDSS(online=True, verbose=True):
     # flux in 10e-17 erg cm^-2 s^-1 Angstrom^-1
     #  fluxconversion = 1.0e-3/1.0e-17/1e10
     s['flux'] = flux  # *fluxconversion
+    s['flux_uncertainty'] = np.sqrt(1/ivar)
 
     # populate the metadata for this fake spectrum
     s['spectrumID'] = str(id[0])
@@ -121,7 +125,7 @@ def downloadSDSS(online=True, verbose=True):
         # ...if not, call getSDSS() to try to get a brighter one
         if verbose:
             print("Yikes, {} was pretty faint. Trying again...".format(id))
-        return getSDSS(online=online, verbose=verbose)
+        return downloadSDSS(online=online, verbose=verbose)
 
 
 def getLabel(spectrum):
@@ -218,6 +222,7 @@ def fakeSDSS(T='random'):
     # convert W/m^3 to
     fluxconversion = 1.0e-3/1.0e-17/1e10
     s['flux'] = f*fluxconversion
+    s['flux_uncertainty'] = np.ones_like(f)*fluxconversion
 
     # populate the metadata for this fake spectrum
     s['spectrumID'] = 'an imaginary SDSS'
@@ -242,8 +247,7 @@ def testSDSS(**kwargs):
         w, f, l = fakeSDSS()
 
     # plot a spectrum
-    wmin = 390
-    wmax = 800
+
     mask = (w>wmin) & (w<wmax)
     plt.plot(w[mask],f[mask])
     plt.title(l)
@@ -272,5 +276,10 @@ def getSDSS(**kwargs):
 
     wavelength_nm = spectrum['wavelengths']/10.0
     flux = spectrum['flux']*10
+    flux_error = spectrum['flux_uncertainty']*10
 
-    return wavelength_nm, flux, label
+    w, f, u = bintoR(wavelength_nm, flux, flux_error, R=100)
+    ok = (w >= wmin) & (w <= wmax)
+
+
+    return w[ok], f[ok], label
